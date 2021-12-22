@@ -6,9 +6,10 @@ my time. I thoroughly enjoyed this project.
 # Program Description:
 
 > This program queries the IRS public API.
+>
 > Written in 🐍 Python 3.9.1
 
-## PART ONE 
+#### PART ONE 
 
 Taking in a list of tax form names and returning some 
 information about the results. 
@@ -18,7 +19,7 @@ The information includes:
     * Form Title
     * Maximum and minimum years the form is available for download    
 
-## PART TWO
+#### PART TWO
 
 Taking in the name of a tax form and a range of years, you will
 be returned all PDFS available with in that range. 
