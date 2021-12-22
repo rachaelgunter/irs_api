@@ -36,7 +36,21 @@ pinwheel_query("Form W-2", "Form 1095-C")
 ```
 JSON output example:
 ```python
-[{'form_number': 'Form W-2', 'form_title': 'Wage and Tax Statement (Info Copy Only)', 'min_year': 1954, 'max_year': 2022}, {'form_number': 'Form 1095-C', 'form_title': 'Employer-Provided Health Insurance Offer and Coverage', 'min_year': 2014, 'max_year': 2021}]
+[
+    {
+        'form_number': 'Form W-2', 
+        'form_title': 'Wage and Tax Statement (Info Copy Only)',
+        'min_year': 1954, 
+        'max_year': 2022
+
+        },
+    {   
+        'form_number': 'Form 1095-C', 
+        'form_title': 'Employer-Provided Health Insurance Offer and Coverage', 
+        'min_year': 2014, 
+        'max_year': 2021
+        }
+]
 ```
 
 ## Part Two
