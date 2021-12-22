@@ -4,39 +4,50 @@ import json
 
 session = HTMLSession()
 
+# initial intake of params given in the first query
+# takes a list of form names 
 def pinwheel_query(*terms):
     list_to_json = []
 
+# initial intake of params given in the second query
+# takes in a form name and a range of years
 def pdf_query(form_title, years):
     term = form_title
 
+# unpacks range of years into a lower and higher year
 def parse_years(years):
     low, high = years.split("-")
 
+# traverses the steps to query for the second style query
 def pdf_traversal(term):
     search_term = format_search_terms_list(term)
     params = search_term_url(search_terms)
     response = search_irs(params)
     download_pdfs(response)
 
+    # appends all of the dict information to a list
     def add_dicts_to_list(dict):
         list_to_json.append(dict)
 
+    # formats the list of dicts to JSON format
     def format_to_json(list):
         return json.dumps(list)
 
+    # traverses the steps to query for the first style query
     def traverse_list(search_terms):
         for term in search_terms:
             param = search_term_url(term)
             response = search_irs(param)
             format_response(response, term)
 
+    # takes a list of form names and breaks them down into seperate strings
     def format_search_terms_list(terms):
         search_terms = []
         for term in terms:
             search_terms.append(term)
         return search_terms   
 
+    # formats the term to make it useful to complete the url
     def search_term_url(terms):
         params = ""
         for term in terms:
@@ -46,6 +57,7 @@ def pdf_traversal(term):
                 params += "+"
         return params
 
+    # downlo
     def download_pdfs(response):
         pdf_list = []
         forms_odd = response.html.find(".odd")
@@ -60,6 +72,7 @@ def pdf_traversal(term):
                 pdf_list.append(pdf)
         print(pdf_list)
 
+    # formats the response given from the api query and saves the information to a dict
     def format_response(response, term):
         info_dict = {
             "form_number": "",
@@ -92,7 +105,7 @@ def pdf_traversal(term):
             pass
         add_dicts_to_list(info_dict)
         
-
+    # uses given params to search the irs api
     def search_irs(params):
         search_by_title = f'?resultsPerPage=200&sortColumn=sortOrder&indexOfFirstRow=0&value={params}&criteria=formNumber&submitSearch=Find&isDescending=false'
         try:
