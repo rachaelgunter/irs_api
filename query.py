@@ -7,21 +7,23 @@ session = HTMLSession()
 def pinwheel_query(*terms):
     list_to_json = []
 
-    def pdf_query(form_title, years):
-        term = form_title
+def pdf_query(form_title, years):
+    term = form_title
 
-        def pdf_traversal(term):
-            search_term = format_search_terms_list(term)
-            params = search_term_url(search_terms)
-            response = search_irs(params)
-            download_pdfs(response)
+def parse_years(years):
+    low, high = years.split("-")
+
+def pdf_traversal(term):
+    search_term = format_search_terms_list(term)
+    params = search_term_url(search_terms)
+    response = search_irs(params)
+    download_pdfs(response)
 
     def add_dicts_to_list(dict):
         list_to_json.append(dict)
 
     def format_to_json(list):
-        json_results = json.dumps(list)
-        return json_results
+        return json.dumps(list)
 
     def traverse_list(search_terms):
         for term in search_terms:
@@ -107,13 +109,14 @@ def pinwheel_query(*terms):
     traverse_list(search_terms_list)
     format_to_json(list_to_json)
 
-  
 
 
 
-print("calling", pinwheel_query("Form W-2", "Form 1095-C"))
+print("pdfffff", pdf_query("Form W-2", "2018-2020"))
 
 
+
+# print("calling", pinwheel_query("Form W-2", "Form 1095-C"))
 
 
 
