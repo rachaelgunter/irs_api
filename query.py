@@ -4,16 +4,15 @@ import json
 
 session = HTMLSession()
 
-def pinwheel_query(terms):
-    list = [{
-            "form_number": "",
-            "form_title": "",
-            "min_year": 0,
-            "max_year": 0
-        }]
-    print(terms)
+def pinwheel_query(*terms):
 
-    def url_search_term(terms):
+    def format_search_terms_list(terms):
+        search_terms = []
+        for term in terms:
+            search_terms.append(term)
+        return search_terms   
+
+    def search_term_url(terms):
         params = ""
         for term in terms:
             if term !=  " ":
@@ -22,91 +21,73 @@ def pinwheel_query(terms):
                 params += "+"
         return params
 
-    params = url_search_term(terms)
-    print(params)
+    to_json = []
+    def add_lists(dicts):
+        to_json.append(dicts)
 
-    def search_irs(params):
-        print(params)
+    def search_irs(params, term):
+        dict = {
+            "form_number": "",
+            "form_title": "",
+            "min_year": 0,
+            "max_year": 0
+        }
         search_by_title = f'?resultsPerPage=200&sortColumn=sortOrder&indexOfFirstRow=0&value={params}&criteria=formNumber&submitSearch=Find&isDescending=false'
         try:
             # url = 'https://apps.irs.gov/app/picklist/list/priorFormPublication.html'
             url = 'https://apps.irs.gov/app/picklist/list/priorFormPublication.html;jsessionid=Il6d7TJ1xhxsV5gDw_wsC_cZ.21'
             response = session.get(url + search_by_title)
-            # response = session.get('https://apps.irs.gov/app/picklist/list/priorFormPublication.html')
-            print(response.html)
+            # print(response.html)
 
-
-            # select class where the form numbers exist
             forms_odd = response.html.find(".odd")
             forms_even = response.html.find(".even")
             forms = forms_odd + forms_even
-            # print(len(forms))
             for form in forms:
-                # forms_prod_nums = response.html.find(".LeftCellSpacer")
-                elements = form.text.split('\n')
-                name = elements[0]
-                des = elements[1]
-                yr = int(elements[2])
-                if name == terms:
-
-                    # how to get the form number from the response
-                    # print("form num", form_num)
-                    list[0]["form_number"] = name
-                    # print(list[0])
-
-                    # how to get the max year from the response
-                    # max_years = response.html.find(".EndCellSpacer")
-                    # # print(max_years)
-                    # for m_year in max_years:
-                    #     # print(m_year.text)
-                    #     max_year = m_year.text
-                    if list[0]["max_year"] < yr:
-
-                    # print("max year", max_year)
-                        list[0]["max_year"] = yr
+                information = form.text.split('\n')
+                form_number = information[0]
+                form_title = information[1]
+                year = int(information[2])
+                if form_number == term:
+                    if dict["form_number"] == form_number and dict["form_title"] == form_title:
+                        if year >= dict["max_year"]:
+                            dict["max_year"] = year
+                        elif year <= dict["max_year"] and year <= dict["min_year"]:
+                            dict["min_year"] = year
+                        elif year >= dict["min_year"]:
+                            pass                        
                     else:
-                        pass
-                    
-                    if list[0]["max_year"] > yr:
-                        list[0]["min_year"] = yr
-
-                    # how to get the title from the resonse
-                    # titles = response.html.find(".MiddleCellSpacer")
-                    # for title in titles:
-                    #     # print(title.text)
-                    #     form_title = title.text
-
-                    # print("form title", form_title)
-
-                    list[0]["form_title"] = des
-
-                    # how to get the min year from the response
-                    # if year is less than max year
-                    # min year == year
-                    
-
-
-                    # pages = response.html.find(".LeftCellSpacer")
-                    # for page in pages:
-                    #     print(page.text)
-                
-                else:
-                    pass
-
-            print(list[0])
+                        dict["form_number"] = form_number
+                        dict["form_title"] = form_title
+                        dict["min_year"] = year
+                        dict["max_year"] = year
+            else:
+                pass
         except requests.exceptions.RequestException as e:
             print(e)
+        add_lists(dict)
+        return dict
 
-    search_irs(params)
+    def traverse_list(search_terms):
+        for term in search_terms:
+            param = search_term_url(term)
+            returned_info = search_irs(param, term)
 
-    # def jay_soning(dict):
-    #     final_json = json.dumps(dict)
-    #     print(final_json)
-    # jay_soning(dict)
+    def jay_soning(dict):
+        final_json = json.dumps(dict)
+        print(final_json)
+
+    search_terms_list = format_search_terms_list(terms)
+
+    list_for_json = traverse_list(search_terms_list)
+    jay_soning(to_json)
+
+  
 
 
 
-print("calling", pinwheel_query("Form W-2"))
+print("calling", pinwheel_query("Form W-2", "Form 1095-C"))
+
+
 
 
 
