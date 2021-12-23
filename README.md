@@ -1,18 +1,23 @@
 # Pinwheel Takehome 
 
-> ## IRS
+>  ## IRS
 >
->The IRS keeps a publically available list of forms on their [Prior Year Products](https://apps.irs.gov/app/picklist/list/priorFormPublication.html) page and while nice it certainly leaves much to be desired.
+> The IRS keeps a publically available list of forms on their [Prior Year Products](https://apps.irs.gov/app/picklist/list/priorFormPublication.html) page and while nice it certainly leaves much to be desired.
 
->Writing a program to be able to easily parse through
->the information available was a fun and helpful use of 
->my time. I thoroughly enjoyed this project.
+> Writing a program to be able to easily parse through
+
+> the information available was a fun and helpful use of 
+
+> my time. I thoroughly enjoyed this project.
+
 >
 
 # Program Description:
 
 > This program queries the IRS public API.
+
 >
+
 > Written in  🐍Python 3.9.1
 
 #### PART ONE 
@@ -21,8 +26,11 @@ Taking in a list of tax form names and returning some
 information about the results. 
 The information is returned in JSON formatting.
 The information includes:<br>
+
     * Form Number
+
     * Form Title
+
     * Maximum and minimum years the form is available for download    
 
 #### PART TWO
@@ -41,8 +49,10 @@ $ pip3 install requirements.txt
 #### How to run the program:
 
 1. Run the file in Python3 interactive mode:
-```
+```python
+
 $ python3 -i query.py
+
 ``` 
 
 ## Part One
@@ -52,7 +62,9 @@ Example of how to enter the parameters for the first function:
 $ pinwheel_query("Form W-2", "Form 1095-C")
 ```
 To easily see output that looks like this  ->
-*JSON output example:
+
+* JSON output example:
+
 ```python
 [
     {
@@ -71,14 +83,19 @@ To easily see output that looks like this  ->
 ]
 ```
 Use a print() function!
-```
+```python
+
 $ print(pinwheel_query("Form W-2", "Form 1095-C"))
+
 ```
 
 
 ## Part Two
 
 Example of how to enter the parameters for the second function:
+
 ```python
+
 $ pdf_query("Form W-2", "2018-2020")
+
 ```
