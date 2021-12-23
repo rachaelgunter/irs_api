@@ -20,7 +20,7 @@
 Taking in a list of tax form names and returning some 
 information about the results. 
 The information is returned in JSON formatting.
-The information includes:
+The information includes:<br>
     * Form Number
     * Form Title
     * Maximum and minimum years the form is available for download    
@@ -51,7 +51,8 @@ Example of how to enter the parameters for the first function:
 ```python
 $ pinwheel_query("Form W-2", "Form 1095-C")
 ```
-JSON output example:
+To easily see output that looks like this  ->
+*JSON output example:
 ```python
 [
     {
@@ -69,6 +70,11 @@ JSON output example:
         }
 ]
 ```
+Use a print() function!
+```
+$ print(pinwheel_query("Form W-2", "Form 1095-C"))
+```
+
 
 ## Part Two
 

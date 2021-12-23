@@ -7,8 +7,14 @@ session = HTMLSession()
 
 # initial intake of params given in the first query
 # takes a list of form names 
+list_to_json = []
+
 def pinwheel_query(*terms):
-    list_to_json = []
+    search_terms_list = format_search_terms_list(terms)
+    traverse_list(search_terms_list)
+    JSON = format_to_json(list_to_json)
+    
+    return JSON
 
 # initial intake of params given in the second query
 # takes in a form name and a range of years
@@ -16,11 +22,6 @@ def pdf_query(form_title, years):
     term = form_title
     low, high = years.split("-")
     pdf_traversal(term, low, high)
-
-# unpacks range of years into a lower and higher year
-def parse_years(years):
-    low, high = years.split("-")
-    return low, high
 
 # traverses the steps to query for the second style query
 def pdf_traversal(term, low, high):
@@ -36,11 +37,14 @@ def add_dicts_to_list(dict):
 
 # formats the list of dicts to JSON format
 def format_to_json(list):
-    return json.dumps(list)
+    j_son = json.dumps(list)
+    return j_son
 
 # traverses the steps to query for the first style query
 def traverse_list(search_terms):
+    print(len(search_terms))
     for term in search_terms:
+        print("term",term)
         param = search_term_url(term)
         response = search_irs(param)
         format_response(response, term)
@@ -48,8 +52,15 @@ def traverse_list(search_terms):
 # takes a list of form names and breaks them down into seperate strings
 def format_search_terms_list(terms):
     search_terms = []
-    for term in terms:
-        search_terms.append(term)
+    if len(terms) > 1:
+        for term in terms:
+            search_terms.append(term)
+    else: 
+        str = ''
+        for item in terms:
+            term = str + item
+            search_terms.append(term)
+            return search_terms
     return search_terms   
 
 # formats the term to make it useful to complete the url
@@ -85,7 +96,6 @@ def make_directory(dictionary):
     for form, p in dictionary.items():
         form_name = form.split(" -")[0]
         year = form.split("- ")[-1]
-        print(form)
 
         url = p
         response = requests.get(url)
@@ -128,20 +138,20 @@ def format_response(response, term):
                 info_dict["max_year"] = year
     else:
         pass
-    add_dicts_to_list(info_dict)
+    add_dicts_to_list(info_dict)    
+
     
 # uses given params to search the irs api
 def search_irs(params):
     search_by_title = f'?resultsPerPage=200&sortColumn=sortOrder&indexOfFirstRow=0&value={params}&criteria=formNumber&submitSearch=Find&isDescending=false'
     try:
-        # url = 'https://apps.irs.gov/app/picklist/list/priorFormPublication.html'
         url = 'https://apps.irs.gov/app/picklist/list/priorFormPublication.html;jsessionid=Il6d7TJ1xhxsV5gDw_wsC_cZ.21'
         response = session.get(url + search_by_title)
-        # print(response.html)
     except requests.exceptions.RequestException as e:
         print(e)
     return response
 
-    search_terms_list = format_search_terms_list(terms)
-    traverse_list(search_terms_list)
-    format_to_json(list_to_json)
+
+print(pinwheel_query("Form W-2 P", "Form 1095-C"))
+
+pdf_query("Form W-2", "2018-2020")
