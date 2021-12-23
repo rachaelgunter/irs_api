@@ -78,7 +78,6 @@ def compile_pdf_list(response, term, low, high):
         year = int(information[2])
         if form_number == term and low <= year <= high:
             pdf_dict[f"{term} - {year}"] = pdf[2:-2]
-    print(pdf_dict)
     return pdf_dict
 
 # makes a directory with the queried pdfs
@@ -143,17 +142,6 @@ def search_irs(params):
         print(e)
     return response
 
-    
     search_terms_list = format_search_terms_list(terms)
     traverse_list(search_terms_list)
     format_to_json(list_to_json)
-
-
-
-
-print("pdfffff", pdf_query("Form 1095-C", "2018-2020"))
-
-
-# print("calling", pinwheel_query("Form W-2", "Form 1095-C"))
-
-
