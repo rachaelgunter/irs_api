@@ -5,10 +5,8 @@
 > The IRS keeps a publically available list of forms on their [Prior Year Products](https://apps.irs.gov/app/picklist/list/priorFormPublication.html) page and while nice it certainly leaves much to be desired.
 
 > Writing a program to be able to easily parse through
-
-> the information available was a fun and helpful use of 
-
-> my time. I thoroughly enjoyed this project.
+the information available was a fun and helpful use of my time. 
+> I thoroughly enjoyed this project.
 
 >
 
@@ -49,7 +47,7 @@ $ pip3 install requirements.txt
 #### How to run the program:
 
 1. Run the file in Python3 interactive mode:
-```python
+```bash
 
 $ python3 -i query.py
 
