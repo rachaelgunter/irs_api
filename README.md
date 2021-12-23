@@ -1,17 +1,18 @@
 # Pinwheel Takehome 
 
-## IRS
-
-This IRS website certainly leaves much to be desired.
-Writing a program to be able to easily parse through
-the information available was a fun and helpful use of 
-my time. I thoroughly enjoyed this project.
+> ## IRS
+>
+>This IRS website certainly leaves much to be desired.
+>Writing a program to be able to easily parse through
+>the information available was a fun and helpful use of 
+>my time. I thoroughly enjoyed this project.
+>
 
 # Program Description:
 
 > This program queries the IRS public API.
 >
-> Written in 🐍 Python 3.9.1
+> Written in  🐍Python 3.9.1
 
 #### PART ONE 
 
@@ -40,7 +41,7 @@ $ pip3 install requirements.txt
 
 Run the file in Python3 interactive mode:
 ```
-python3 -i query.py
+$ python3 -i query.py
 ``` 
 
 ## Part One
