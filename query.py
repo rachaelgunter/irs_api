@@ -81,22 +81,21 @@ def compile_pdf_list(response, term, low, high):
     print(pdf_dict)
     return pdf_dict
 
+# makes a directory with the queried pdfs
 def make_directory(dictionary):
     for form, p in dictionary.items():
         form_name = form.split(" -")[0]
         year = form.split("- ")[-1]
+        print(form)
 
-        path = os.path.join(form_name, p)
+        url = p
+        response = requests.get(url)
 
         if not os.path.exists(form_name):
-            os.makedirs(form_name)
+            os.mkdir(form_name)
 
-        print(f"saving {form} to {path}")
-        with open(path, "wb") as f_out:
-            f_out.write(p.content)
-
-
-
+        with open(f"{form_name}/{form}.pdf", "wb") as f:
+            f.write(response.content)
 
 
 # formats the response given from the api query and saves the information to a dict
@@ -152,13 +151,9 @@ def search_irs(params):
 
 
 
-print("pdfffff", pdf_query("Form W-2", "2018-2020"))
-
+print("pdfffff", pdf_query("Form 1095-C", "2018-2020"))
 
 
 # print("calling", pinwheel_query("Form W-2", "Form 1095-C"))
 
 
-
-
-# when queried download the pdf and ad to a subfolder 

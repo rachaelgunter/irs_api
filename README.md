@@ -1,3 +1,7 @@
+# Pinwheel Takehome 
+
+## IRS
+
 This IRS website certainly leaves much to be desired.
 Writing a program to be able to easily parse through
 the information available was a fun and helpful use of 
@@ -32,11 +36,18 @@ $ pip3 install requirements.txt
 
 # How To Use:
 
+#### How to run the program:
+
+Run the file in Python3 interactive mode:
+```
+python3 -i query.py
+``` 
+
 ## Part One
 
 Example of how to enter the parameters for the first function:
 ```python
-pinwheel_query("Form W-2", "Form 1095-C")
+$ pinwheel_query("Form W-2", "Form 1095-C")
 ```
 JSON output example:
 ```python
@@ -59,7 +70,7 @@ JSON output example:
 
 ## Part Two
 
-Example of how to enter the parameters for the first function:
+Example of how to enter the parameters for the second function:
 ```python
-pdf_query("Form W-2", "2018-2020")
+$ pdf_query("Form W-2", "2018-2020")
 ```
