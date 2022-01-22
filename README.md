@@ -6,7 +6,7 @@ https://github.com/rachaelgunter/irs_api
 
 > Writing a program to be able to easily parse through
 the information available was a fun and helpful use of my time. 
-> I thoroughly enjoyed this project.
+> 
 
 >
 
